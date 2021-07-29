@@ -1,13 +1,9 @@
 [![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}-app.svg?style=shield)](https://circleci.com/gh/giantswarm/{APP-NAME}-app)
 
-# {APP-NAME} chart
+# linkerd-viz chart
 
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
-
-**What is this app?**
-**Why did we add it?**
-**Who can use it?**
+This chart is an extension for [Linkerd2 service mesh app](https://github.com/giantswarm/linkerd2-app) provided by Giant Swarm.
+It adds a visualization stack of prometheus, grafana and other metrics components to the cluster, pre-configured for the linkerd2-app.
 
 ## Installing
 
