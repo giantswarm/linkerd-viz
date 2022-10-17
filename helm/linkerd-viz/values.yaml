@@ -4,6 +4,11 @@
 
 # Fields that should be common with the core control plane
 
+# -- Registry switch
+# Do not overwrite this as the registry is automatically set based on the installation region
+image:
+  registry: quay.io
+
 # -- control plane version. See Proxy section for proxy version
 linkerdVersion: linkerdVersionValue
 # -- Kubernetes DNS Domain name to use
@@ -12,8 +17,6 @@ clusterDomain: cluster.local
 # @default -- clusterDomain
 identityTrustDomain: ""
 
-# -- Docker registry for all viz components
-defaultRegistry: quay.io/giantswarm
 # -- Docker imagePullPolicy for all viz components
 defaultImagePullPolicy: IfNotPresent
 # -- Log level for all the viz components
@@ -66,11 +69,8 @@ metricsAPI:
   # @default -- defaultLogLevel
   logLevel: ""
   image:
-    # -- Docker registry for the metrics-api component
-    # @default -- defaultRegistry
-    registry: ""
     # -- Docker image name for the metrics-api component
-    name: metrics-api
+    name: giantswarm/metrics-api
     # -- Docker image tag for the metrics-api component
     # @default -- linkerdVersion
     tag: ""
@@ -114,11 +114,8 @@ tap:
   # @default -- defaultLogLevel
   logLevel: ""
   image:
-    # -- Docker registry for the tap instance
-    # @default -- defaultRegistry
-    registry: ""
     # -- Docker image name for the tap instance
-    name: tap
+    name: giantswarm/tap
     # -- Docker image tag for the tap instance
     # @default -- linkerdVersion
     tag: ""
@@ -170,11 +167,8 @@ tapInjector:
   # @default -- defaultLogLevel
   logLevel: ""
   image:
-    # -- Docker registry for the tapInjector instance
-    # @default -- defaultRegistry
-    registry: ""
     # -- Docker image name for the tapInjector instance
-    name: tap
+    name: giantswarm/tap
     # -- Docker image tag for the tapInjector instance
     # @default -- linkerdVersion
     tag: ""
@@ -234,11 +228,8 @@ dashboard:
   # @default -- defaultLogLevel
   logLevel: ""
   image:
-    # -- Docker registry for the web instance
-    # @default -- defaultRegistry
-    registry: ""
     # -- Docker image name for the web instance
-    name: web
+    name: giantswarm/web
     # -- Docker image tag for the web instance
     # @default -- linkerdVersion
     tag: ""
@@ -277,11 +268,8 @@ grafana:
   # -- toggle field to enable or disable grafana
   enabled: true
   image:
-    # -- Docker registry for the grafana instance
-    # @default -- defaultRegistry
-    registry: ""
     # -- Docker image name for the grafana instance
-    name: grafana
+    name: giantswarm/grafana
     # -- Docker image tag for the grafana instance
     # @default -- linkerdVersion
     tag: ""
@@ -318,10 +306,8 @@ prometheus:
   # -- toggle field to enable or disable prometheus
   enabled: true
   image:
-    # -- Docker registry for the prometheus instance
-    registry: prom
     # -- Docker image name for the prometheus instance
-    name: prometheus
+    name: giantswarm/prometheus
     # -- Docker image tag for the prometheus instance
     tag: v2.19.3
     # -- Pull policy for the prometheus instance
