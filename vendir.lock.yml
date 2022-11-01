@@ -1,0 +1,11 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: remove noop hack as it was introduced in upstream
+      sha: 2ad91ecf9719e27075434221ebea62189394c1a5
+      tags:
+      - stable-2.10.1-2139-g2ad91ecf9
+    path: linkerd
+  path: vendor
+kind: LockConfig
