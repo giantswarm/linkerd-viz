@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Initial Release
+
 ### Added
 
-- Add helm charts with subtree method
+- Add helm charts with vendir method
+- Add giantswarm app framework
 
 ### Changed
 
 - Add image registry switch to automatically switch the used image registry based on the installation region
 
-[Unreleased]: https://github.com/giantswarm/linkerd-viz/tree/master
+[Unreleased]: https://github.com/giantswarm/linkerd-viz/tree/main
