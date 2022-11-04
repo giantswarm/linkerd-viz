@@ -23,7 +23,7 @@ If you have access to the Kubernetes API on the management cluster, you could cr
 the App CR and ConfigMap directly.
 
 Here is an example that would install the app to
-workload cluster `abc12`:
+workload cluster `<cluster-id>`:
 
 ```
 # appCR.yaml
@@ -31,7 +31,7 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
   name: linkerd-viz
-  namespace: <your-cluster-id>
+  namespace: <cluster-id>
 spec:
   catalog: giantswarm
   kubeConfig:
