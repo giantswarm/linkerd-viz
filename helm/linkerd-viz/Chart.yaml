@@ -22,4 +22,4 @@ maintainers:
     email: cncf-linkerd-dev@lists.cncf.io
     url: https://linkerd.io/
   - name: Giant Swarm applications team
-    url: https://github.com/giantswarm/linkerd2-cni-app
+    url: https://github.com/giantswarm/linkerd-viz-app
