@@ -1,0 +1,11 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: 'Merge pull request #447 from giantswarm/viz_add_gs-labels...'
+      sha: d14f8f322a91fdc4dfca6d63de0d2a234fd11b9f
+      tags:
+      - stable-2.10.1-2149-gd14f8f322
+    path: linkerd
+  path: vendor
+kind: LockConfig

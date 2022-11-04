@@ -5,10 +5,11 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: linkerd-{{.Values.namespace}}-metrics-api
+  name: linkerd-{{.Release.Namespace}}-metrics-api
   labels:
     linkerd.io/extension: viz
     component: metrics-api
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 rules:
 - apiGroups: ["extensions", "apps"]
   resources: ["daemonsets", "deployments", "replicasets", "statefulsets"]
@@ -22,32 +23,34 @@ rules:
 - apiGroups: ["linkerd.io"]
   resources: ["serviceprofiles"]
   verbs: ["list", "get", "watch"]
-- apiGroups: ["split.smi-spec.io"]
-  resources: ["trafficsplits"]
-  verbs: ["list", "get", "watch"]
+- apiGroups: ["policy.linkerd.io"]
+  resources: ["servers", "serverauthorizations", "authorizationpolicies", "httproutes"]
+  verbs: ["list", "get"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: linkerd-{{.Values.namespace}}-metrics-api
+  name: linkerd-{{.Release.Namespace}}-metrics-api
   labels:
     linkerd.io/extension: viz
     component: metrics-api
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: linkerd-{{.Values.namespace}}-metrics-api
+  name: linkerd-{{.Release.Namespace}}-metrics-api
 subjects:
 - kind: ServiceAccount
   name: metrics-api
-  namespace: {{.Values.namespace}}
+  namespace: {{.Release.Namespace}}
 ---
 kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: metrics-api
-  namespace: {{.Values.namespace}}
+  namespace: {{ .Release.Namespace }}
   labels:
     linkerd.io/extension: viz
     component: metrics-api
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 {{- include "partials.image-pull-secrets" .Values.imagePullSecrets }}
