@@ -10,6 +10,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: prometheus
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["nodes", "nodes/proxy", "pods"]
@@ -22,6 +23,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: prometheus
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

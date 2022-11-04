@@ -12,6 +12,7 @@ metadata:
     linkerd.io/extension: viz
     component: prometheus
     namespace: {{.Release.Namespace}}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
 data:
@@ -167,6 +168,7 @@ metadata:
     linkerd.io/extension: viz
     component: prometheus
     namespace: {{.Release.Namespace}}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
     linkerd.io/inject: enabled
@@ -194,6 +196,8 @@ metadata:
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
     component: prometheus
     namespace: {{.Release.Namespace}}
+    giantswarm.io/monitoring_basic_sli: "true"
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: prometheus
   namespace: {{ .Release.Namespace }}
 spec:
@@ -221,6 +225,7 @@ spec:
         component: prometheus
         namespace: {{.Release.Namespace}}
         {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
+        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       {{- if .Values.prometheus.tolerations -}}
       {{- include "linkerd.tolerations" (dict "Values" .Values.prometheus) | nindent 6 }}
@@ -308,6 +313,7 @@ metadata:
     app.kubernetes.io/part-of: Linkerd
     app.kubernetes.io/version: {{default .Values.linkerdVersion}}
     component: prometheus
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: prometheus
   namespace: {{ .Release.Namespace }}
 spec:

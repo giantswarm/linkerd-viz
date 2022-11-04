@@ -9,6 +9,7 @@ metadata:
   name: {{.Release.Namespace}}
   labels:
     linkerd.io/extension: viz
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{- if .Values.prometheusUrl }}
     viz.linkerd.io/external-prometheus: {{.Values.prometheusUrl}}

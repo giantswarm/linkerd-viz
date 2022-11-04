@@ -10,6 +10,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: metrics-api
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
     linkerd.io/inject: enabled
@@ -31,6 +32,8 @@ metadata:
     {{ include "partials.annotations.created-by" . }}
     linkerd.io/inject: enabled
     config.linkerd.io/proxy-await: "enabled"
+    giantswarm.io/monitoring_basic_sli: "true"
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   labels:
     linkerd.io/extension: viz
     app.kubernetes.io/name: metrics-api
@@ -62,6 +65,7 @@ spec:
         linkerd.io/extension: viz
         component: metrics-api
         {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
+        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       {{- if .Values.metricsAPI.tolerations -}}
       {{- include "linkerd.tolerations" (dict "Values" .Values.metricsAPI) | nindent 6 }}

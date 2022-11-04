@@ -11,6 +11,7 @@ metadata:
     linkerd.io/extension: viz
     component: tap
     namespace: {{.Release.Namespace}}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
     linkerd.io/inject: enabled
@@ -42,6 +43,8 @@ metadata:
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
     component: tap
     namespace: {{.Release.Namespace}}
+    giantswarm.io/monitoring_basic_sli: "true"
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: tap
   namespace: {{ .Release.Namespace }}
 spec:
@@ -74,6 +77,7 @@ spec:
         component: tap
         namespace: {{.Release.Namespace}}
         {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
+        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       {{- if .Values.tolerations -}}
       {{- include "linkerd.tolerations" . | nindent 6 }}

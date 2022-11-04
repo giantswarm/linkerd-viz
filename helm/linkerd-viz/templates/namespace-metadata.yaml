@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/name: namespace-metadata
     app.kubernetes.io/part-of: Linkerd
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: namespace-metadata
 spec:
   template:
@@ -21,12 +22,13 @@ spec:
         app.kubernetes.io/name: namespace-metadata
         app.kubernetes.io/part-of: Linkerd
         app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
+        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       restartPolicy: Never
       serviceAccountName: namespace-metadata
       containers:
       - name: namespace-metadata
-        image: curlimages/curl:7.78.0
+        image: "{{.Values.image.registry}}/{{.Values.namespaceMetadata.image.name}}:{{.Values.namespaceMetadata.image.version}}"
         imagePullPolicy: {{.Values.defaultImagePullPolicy}}
         command: ["/bin/sh"]
         securityContext:
