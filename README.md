@@ -3,7 +3,7 @@
 # linkerd-viz chart
 
 This chart is an extension for [Linkerd2 service mesh app](https://github.com/giantswarm/linkerd2-app) provided by Giant Swarm.
-It adds a visualization stack of prometheus, grafana and other metrics components to the cluster, pre-configured for the linkerd2-app.
+It adds a visualization stack of prometheus and metrics components to the cluster, pre-configured for the linkerd-control-plane-app.
 
 ## Installing
 
@@ -15,12 +15,8 @@ There are 3 ways to install this app onto a workload cluster.
 
 ## Configuring
 
-### values.yaml
-**This is an example of a values file you could upload using our web interface.**
-```
-# values.yaml
+The user configuration should only contain values that are additional to or diverge from the default values provided by the chart. Check our [user configuration docs](https://docs.giantswarm.io/app-platform/app-configuration/) to see how configurations are merged.
 
-```
 
 ### Sample App CR and ConfigMap for the management cluster
 If you have access to the Kubernetes API on the management cluster, you could create
@@ -31,30 +27,34 @@ workload cluster `abc12`:
 
 ```
 # appCR.yaml
-
-```
-
-```
-# user-values-configmap.yaml
-
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: linkerd-viz
+  namespace: <your-cluster-id>
+spec:
+  catalog: giantswarm
+  kubeConfig:
+    inCluster: false
+  name: linkerd-viz
+  namespace: linkerd-viz
+  namespaceConfig:
+    labels:
+      kubernetes.io/metadata.name=linkerd-viz
+      linkerd.io/extension=viz
+  userConfig:
+    configMap:
+      name: linkerd-viz-userconfig-<your-cluster-id>
+      namespace: <your-cluster-id>
+    secret:
+      name: linkerd-viz-userconfig-<your-cluster-id>
+      namespace: <your-cluster-id>
+  version: 0.8.0
 
 ```
 
 See our [full reference page on how to configure applications](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
 
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-*
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-*
-
 ## Credit
 
-* {APP HELM REPOSITORY}
+* https://github.com/linkerd/linkerd2/tree/main/viz/charts/linkerd-viz
