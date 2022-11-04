@@ -362,7 +362,6 @@ namespaceMetadata:
     # -- Pull policy for the namespace-metadata instance
     # @default -- defaultImagePullPolicy
     pullPolicy: ""
-
 grafana:
   # -- url of an in-cluster Grafana instance with reverse proxy configured, used by the
   # Linkerd viz web dashboard to provide direct links to specific Grafana

@@ -6,7 +6,7 @@ description: |
 home: https://linkerd.io
 keywords:
 - service-mesh
-kubeVersion: ">=1.21.0-0"
+kubeVersion: ">=1.16.0-0"
 annotations:
   application.giantswarm.io/team: team-cabbage
 dependencies:
