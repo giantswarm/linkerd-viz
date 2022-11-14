@@ -358,10 +358,11 @@ namespaceMetadata:
     # -- Docker image name for the namespace-metadata instance
     name: giantswarm/curl
     # -- Docker image tag for the namespace-metadata instance
-    tag: 7.78.0
+    version: 7.78.0
     # -- Pull policy for the namespace-metadata instance
     # @default -- defaultImagePullPolicy
     pullPolicy: ""
+
 grafana:
   # -- url of an in-cluster Grafana instance with reverse proxy configured, used by the
   # Linkerd viz web dashboard to provide direct links to specific Grafana
