@@ -242,7 +242,7 @@
                         "registry": {
                             "type": "string"
                         },
-                        "tag": {
+                        "version": {
                             "type": "string"
                         }
                     }
