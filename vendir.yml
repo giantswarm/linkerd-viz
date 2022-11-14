@@ -10,3 +10,13 @@ directories:
     includePaths:
     - viz/charts/linkerd-viz/**/*
     - charts/partials/**/*
+- path: helm/linkerd-viz/templates
+  contents:
+  - path: .
+    directory:
+      path: vendor/linkerd/viz/charts/linkerd-viz/templates
+- path: helm/linkerd-viz/charts/partials
+  contents:
+  - path: .
+    directory:
+      path: vendor/linkerd/charts/partials
