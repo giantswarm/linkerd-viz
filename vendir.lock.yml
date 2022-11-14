@@ -8,4 +8,12 @@ directories:
       - stable-2.10.1-2149-gd14f8f322
     path: linkerd
   path: vendor
+- contents:
+  - directory: {}
+    path: .
+  path: helm/linkerd-viz/templates
+- contents:
+  - directory: {}
+    path: .
+  path: helm/linkerd-viz/charts/partials
 kind: LockConfig
