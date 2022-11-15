@@ -1,4 +1,8 @@
 replace-chart-version-with-git: true
 generate-metadata: true
-chart-dir: ./helm/{APP-NAME}
+chart-dir: ./helm/linkerd-viz
 destination: ./build
+# CI overwrites this, check .circleci/config.yaml
+catalog-base-url: https://giantswarm.github.io/giantswarm-catalog/
+# until we support custom template helper filenames
+disable-giantswarm-helm-validator: true
