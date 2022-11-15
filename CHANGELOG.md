@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2022-11-15
+
 ## [0.1.0] - 2022-11-04
 
 ### Initial Release
@@ -20,5 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add image registry switch to automatically switch the used image registry based on the installation region
 
-[Unreleased]: https://github.com/giantswarm/linkerd-viz-app/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/linkerd-viz-app/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/giantswarm/linkerd-viz-app/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/linkerd-viz-app/releases/tag/v0.1.0
