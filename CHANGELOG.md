@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- README: Typo in example appCR.yaml
+
 ## [0.8.0] - 2022-11-15
 
 ### Initial Release
