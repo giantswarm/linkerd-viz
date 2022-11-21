@@ -40,8 +40,8 @@ spec:
   namespace: linkerd-viz
   namespaceConfig:
     labels:
-      kubernetes.io/metadata.name=linkerd-viz
-      linkerd.io/extension=viz
+      kubernetes.io/metadata.name: linkerd-viz
+      linkerd.io/extension: viz
   userConfig:
     configMap:
       name: linkerd-viz-userconfig-<your-cluster-id>
