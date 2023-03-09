@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade to Linkerd v2.12.4.
+
 ### Fixed
 
-- README: Typo in example appCR.yaml
+- README: Typo in example appCR.yaml.
 
 ## [0.8.0] - 2022-11-15
 
@@ -17,12 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add helm charts with vendir method
-- Add giantswarm app framework
+- Add helm charts with vendir method.
+- Add giantswarm app framework.
 
 ### Changed
 
-- Add image registry switch to automatically switch the used image registry based on the installation region
+- Add image registry switch to automatically switch the used image registry based on the installation region.
 
 [Unreleased]: https://github.com/giantswarm/linkerd-viz-app/compare/v0.8.0...HEAD
 [0.8.0]: https://github.com/giantswarm/linkerd-viz-app/releases/tag/v0.8.0

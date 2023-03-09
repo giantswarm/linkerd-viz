@@ -12,6 +12,7 @@ metadata:
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
     {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: namespace-metadata
+  namespace: {{.Release.Namespace}}
 spec:
   template:
     metadata:
