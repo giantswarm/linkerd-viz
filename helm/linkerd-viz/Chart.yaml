@@ -9,6 +9,7 @@ keywords:
 kubeVersion: ">=1.16.0-0"
 annotations:
   application.giantswarm.io/team: team-cabbage
+  ui.giantswarm.io/logo: https://s.giantswarm.io/app-icons/linkerd2/2/logo_dark.svg
 dependencies:
   - name: partials
     version: 0.1.0
@@ -16,7 +17,7 @@ name: "linkerd-viz"
 sources:
   - https://github.com/linkerd/linkerd2/
 version: 0.9.0
-icon: https://linkerd.io/images/logo-only-200h.png
+icon: https://s.giantswarm.io/app-icons/linkerd2/2/icon_dark.svg
 maintainers:
   - name: Linkerd authors
     email: cncf-linkerd-dev@lists.cncf.io
