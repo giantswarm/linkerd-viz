@@ -5,9 +5,15 @@
 # Fields that should be common with the core control plane
 
 # -- control plane version. See Proxy section for proxy version
-linkerdVersion: stable-2.12.4
+linkerdVersion: stable-2.13.4
 # -- Kubernetes DNS Domain name to use
 clusterDomain: cluster.local
+# -- Additional labels to add to all pods
+podLabels: {}
+# -- Labels to apply to all resources
+commonLabels:
+  giantswarm.io/service-type: managed
+  application.giantswarm.io/team: cabbage
 # -- Trust domain used for identity
 # @default -- clusterDomain
 identityTrustDomain: ""
@@ -123,6 +129,11 @@ metricsAPI:
   # for more information
   tolerations: *default_tolerations
 
+  # -- metrics-api service configuration
+  service:
+    # -- Additional annotations to add to metrics-api service
+    annotations: {}
+
 # tap configuration
 tap:
     # -- Number of tap component replicas
@@ -198,6 +209,9 @@ tap:
       # -- Amount of ephemeral storage that the tap container requests
       request: ""
 
+  # -- List of headers that will be ignored for Linkerd Tap
+  ignoreHeaders: []
+
   proxy:
     # -- If set, overrides default proxy resources for the proxy injected
     # into the tap component
@@ -205,6 +219,11 @@ tap:
 
   # -- UID for the dashboard resource
   UID:
+
+  # -- tap service configuration
+  service:
+    # -- Additional annotations to add to tap service
+    annotations: {}
 
 # tapInjector configuration
 tapInjector:
@@ -296,6 +315,11 @@ tapInjector:
   # for more information.
   injectCaFromSecret: ""
 
+  # -- tap service configuration
+  service:
+    # -- Additional annotations to add to tapInjector service
+    annotations: {}
+
 # web dashboard configuration
 dashboard:
   # -- Number of replicas of dashboard
@@ -351,14 +375,20 @@ dashboard:
     # into the dashboard component
     # resources:
 
+  # -- dashboard service configuration
+  service:
+    # -- Additional annotations to add to dashboard service
+    annotations: {}
+
 namespaceMetadata:
   image:
     # -- Docker registry for the namespace-metadata instance
+    # @default -- defaultRegistry
     registry: ""
     # -- Docker image name for the namespace-metadata instance
-    name: giantswarm/curl
+    name: giantswarm/linkerd2-extension-init
     # -- Docker image tag for the namespace-metadata instance
-    version: 7.78.0
+    tag: v0.1.0
     # -- Pull policy for the namespace-metadata instance
     # @default -- defaultImagePullPolicy
     pullPolicy: ""
@@ -385,7 +415,7 @@ prometheus:
     # -- Docker image name for the prometheus instance
     name: giantswarm/prometheus
     # -- Docker image tag for the prometheus instance
-    tag: v2.30.3
+    tag: v2.43.0
     # -- Pull policy for the prometheus instance
     # @default -- defaultImagePullPolicy
     pullPolicy: ""

@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Merge tag 'refs/tags/stable-2.12.4' into upgrade-2.12.4...
-      sha: 6a3b38f5edf1aa4781ad1b60f899bba020b47b44
+      commitTitle: fix viz image repo value name...
+      sha: a9cd0e7a741e1e615bb6feab9c2b7249e78f4467
       tags:
-      - stable-2.10.1-2189-g6a3b38f5e
+      - stable-2.10.1-2934-ga9cd0e7a7
     path: linkerd
   path: vendor
 - contents:

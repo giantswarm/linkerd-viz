@@ -4,13 +4,13 @@ metadata:
   annotations:
     {{ include "partials.annotations.created-by" . }}
     "helm.sh/hook": post-install
-    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-weight": "1"
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
   labels:
     app.kubernetes.io/name: namespace-metadata
     app.kubernetes.io/part-of: Linkerd
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   name: namespace-metadata
   namespace: {{.Release.Namespace}}
 spec:
@@ -23,37 +23,39 @@ spec:
         app.kubernetes.io/name: namespace-metadata
         app.kubernetes.io/part-of: Linkerd
         app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
-        {{- include "partials.giantswarm-labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
     spec:
       restartPolicy: Never
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: namespace-metadata
       containers:
       - name: namespace-metadata
-        image: "{{.Values.image.registry}}/{{.Values.namespaceMetadata.image.name}}:{{.Values.namespaceMetadata.image.version}}"
-        imagePullPolicy: {{.Values.defaultImagePullPolicy}}
-        command: ["/bin/sh"]
+        image: {{.Values.image.registry | default .Values.defaultRegistry}}/{{.Values.namespaceMetadata.image.name}}:{{.Values.namespaceMetadata.image.tag}}
+        imagePullPolicy: {{.Values.namespaceMetadata.image.pullPolicy | default .Values.defaultImagePullPolicy}}
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
           runAsUser: {{.Values.defaultUID}}
+          seccompProfile:
+            type: RuntimeDefault
         args:
-        - -c
-        - |
-          ops=''
-          token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-          ns=$(curl -kfv -H "Authorization: Bearer $token" \
-            "https://kubernetes.default.svc/api/v1/namespaces/{{.Release.Namespace}}")
-
-          if ! echo "$ns" | grep -q 'labels'; then
-            ops="$ops{\"op\": \"add\",\"path\": \"/metadata/labels\",\"value\": {}},"
-          fi
-          if ! echo "$ns" | grep -q 'annotations'; then
-            ops="$ops{\"op\": \"add\", \"path\": \"/metadata/annotations\", \"value\": {}},"
-          fi
-
-          {{- if .Values.prometheusUrl }}
-          ops="$ops{\"op\": \"add\", \"path\": \"/metadata/annotations/viz.linkerd.io~1external-prometheus\", \"value\": \"{{.Values.prometheusUrl}}\"},"
-          {{- end }}
-          ops="$ops{\"op\": \"add\", \"path\": \"/metadata/labels/linkerd.io~1extension\", \"value\": \"viz\"}"
-
-          curl -kfv -XPATCH -H "Content-Type: application/json-patch+json" -H "Authorization: Bearer $token" \
-            -d "[$ops]" \
-            "https://kubernetes.default.svc/api/v1/namespaces/{{.Release.Namespace}}?fieldManager=kubectl-label"
+        - --log-format
+        - {{.Values.defaultLogFormat}}
+        - --log-level
+        - {{.Values.defaultLogLevel}}
+        - --extension
+        - viz
+        - --namespace
+        - {{.Release.Namespace}}
+        - --linkerd-namespace
+        - {{.Values.linkerdNamespace}}
+        {{- with .Values.prometheusUrl }}
+        - --prometheus-url
+        - {{.}}
+        {{- end }}

@@ -11,9 +11,10 @@ metadata:
     linkerd.io/extension: viz
     component: tap
     namespace: {{.Release.Namespace}}
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
+    {{- with .Values.tap.service.annotations }}{{ toYaml . | trim | nindent 4 }}{{- end }}
     linkerd.io/inject: enabled
 spec:
   type: ClusterIP
@@ -44,7 +45,7 @@ metadata:
     component: tap
     namespace: {{.Release.Namespace}}
     giantswarm.io/monitoring_basic_sli: "true"
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   name: tap
   namespace: {{ .Release.Namespace }}
 spec:
@@ -71,13 +72,13 @@ spec:
         {{- end }}
         {{- with .Values.podAnnotations }}{{ toYaml . | trim | nindent 8 }}{{- end }}
         linkerd.io/inject: enabled
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "0"
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         linkerd.io/extension: viz
         component: tap
         namespace: {{.Release.Namespace}}
         {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
-        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       {{- if .Values.tolerations -}}
       {{- include "linkerd.tolerations" . | nindent 6 }}
@@ -94,6 +95,9 @@ spec:
         - -log-format={{.Values.tap.logFormat | default .Values.defaultLogFormat}}
         - -identity-trust-domain={{.Values.identityTrustDomain | default .Values.clusterDomain}}
         - -enable-pprof={{.Values.enablePprof | default false}}
+        {{- if .Values.tap.ignoreHeaders }}
+        - -ignore-headers={{ .Values.tap.ignoreHeaders | join "," }}
+        {{- end }}
         image: {{.Values.tap.image.registry | default .Values.image.registry}}/{{.Values.tap.image.name}}:{{.Values.tap.image.tag | default .Values.linkerdVersion}}
         imagePullPolicy: {{.Values.tap.image.pullPolicy | default .Values.defaultImagePullPolicy}}
         livenessProbe:
@@ -118,11 +122,22 @@ spec:
         {{- include "partials.resources" .Values.tap.resources | nindent 8 }}
         {{- end }}
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
           runAsUser: {{.Values.tap.UID | default .Values.defaultUID}}
+          seccompProfile:
+            type: RuntimeDefault
         volumeMounts:
         - mountPath: /var/run/linkerd/tls
           name: tls
           readOnly: true
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: tap
       volumes:
       - name: tls

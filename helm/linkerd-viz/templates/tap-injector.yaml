@@ -10,9 +10,10 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap-injector
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
+    {{- with .Values.tapInjector.service.annotations }}{{ toYaml . | trim | nindent 4 }}{{- end }}
     linkerd.io/inject: enabled
 spec:
   type: ClusterIP
@@ -38,7 +39,7 @@ metadata:
     app.kubernetes.io/part-of: Linkerd
     component: tap-injector
     giantswarm.io/monitoring_basic_sli: "true"
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   name: tap-injector
   namespace: {{ .Release.Namespace }}
 spec:
@@ -63,6 +64,7 @@ spec:
         {{- end }}
         {{- with .Values.podAnnotations }}{{ toYaml . | trim | nindent 8 }}{{- end }}
         linkerd.io/inject: enabled
+        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "0"
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         linkerd.io/extension: viz
@@ -105,11 +107,22 @@ spec:
         {{- include "partials.resources" .Values.tapInjector.resources | nindent 8 }}
         {{- end }}
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
           runAsUser: {{.Values.tapInjector.UID | default .Values.defaultUID}}
+          seccompProfile:
+            type: RuntimeDefault
         volumeMounts:
         - mountPath: /var/run/linkerd/tls
           name: tls
           readOnly: true
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: tap-injector
       volumes:
       - name: tls
