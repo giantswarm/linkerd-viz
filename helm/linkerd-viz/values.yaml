@@ -11,7 +11,9 @@ clusterDomain: cluster.local
 # -- Additional labels to add to all pods
 podLabels: {}
 # -- Labels to apply to all resources
-commonLabels: {}
+commonLabels:
+  giantswarm.io/service-type: managed
+  application.giantswarm.io/team: cabbage
 # -- Trust domain used for identity
 # @default -- clusterDomain
 identityTrustDomain: ""
