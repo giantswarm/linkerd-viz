@@ -3,35 +3,37 @@ apiVersion: policy.linkerd.io/v1beta1
 kind: Server
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: proxy-admin
+  name: prometheus-admin
   labels:
     linkerd.io/extension: viz
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
 spec:
   podSelector:
     matchLabels:
       linkerd.io/extension: viz
-  port: linkerd-admin
+      component: prometheus
+      namespace: {{.Release.Namespace}}
+  port: admin-http
   proxyProtocol: HTTP/1
 ---
 apiVersion: policy.linkerd.io/v1alpha1
 kind: AuthorizationPolicy
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: proxy-admin
+  name: prometheus-admin
   labels:
     linkerd.io/extension: viz
-    {{- include "partials.giantswarm-labels" . | nindent 4 }}
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
 spec:
   targetRef:
     group: policy.linkerd.io
     kind: Server
-    name: proxy-admin
+    name: prometheus-admin
   requiredAuthenticationRefs:
-  - group: policy.linkerd.io
-    kind: NetworkAuthentication
-    name: kubelet
+    - kind: ServiceAccount
+      name: metrics-api
+      namespace: {{.Release.Namespace}}
