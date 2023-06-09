@@ -5,6 +5,9 @@
         "clusterDomain": {
             "type": "string"
         },
+        "commonLabels": {
+            "type": "object"
+        },
         "dashboard": {
             "type": "object",
             "properties": {
@@ -83,6 +86,14 @@
                 },
                 "restrictPrivileges": {
                     "type": "boolean"
+                },
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        }
+                    }
                 }
             }
         },
@@ -222,6 +233,14 @@
                         }
                     }
                 },
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        }
+                    }
+                },
                 "tolerations": {
                     "type": ["null", "array"]
                 }
@@ -242,7 +261,7 @@
                         "registry": {
                             "type": "string"
                         },
-                        "version": {
+                        "tag": {
                             "type": "string"
                         }
                     }
@@ -404,6 +423,9 @@
                 "externalSecret": {
                     "type": "boolean"
                 },
+                "ignoreHeaders": {
+                    "type": "array"
+                },
                 "image": {
                     "type": "object",
                     "properties": {
@@ -477,6 +499,14 @@
                                     "type": ["null", "string", "number"]
                                 }
                             }
+                        }
+                    }
+                },
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
                         }
                     }
                 }
@@ -579,6 +609,14 @@
                                     "type": ["null", "string", "number"]
                                 }
                             }
+                        }
+                    }
+                },
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
                         }
                     }
                 }
