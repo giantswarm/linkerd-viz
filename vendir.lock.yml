@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: fix viz image repo value name...
-      sha: a9cd0e7a741e1e615bb6feab9c2b7249e78f4467
+      commitTitle: use global image registry...
+      sha: 9fe8a80ec8e33a903df799a54416fcbe728eaec0
       tags:
-      - stable-2.10.1-2934-ga9cd0e7a7
+      - stable-2.10.1-2935-g9fe8a80ec
     path: linkerd
   path: vendor
 - contents:
