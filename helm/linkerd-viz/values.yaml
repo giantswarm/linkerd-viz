@@ -249,10 +249,12 @@ tapInjector:
     pullPolicy: ""
 
   namespaceSelector:
-    # matchExpressions:
-    # - key: runlevel
-    #   operator: NotIn
-    #   values: ["0","1"]
+    - key: kubernetes.io/metadata.name
+      operator: NotIn
+      values:
+      - kube-system
+      - cert-manager
+      - giantswarm
   objectSelector:
     # matchLabels:
     #   foo: bar
