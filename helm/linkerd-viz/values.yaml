@@ -101,12 +101,12 @@ metricsAPI:
       # -- Maximum amount of CPU units that the metrics-api container can use
       limit:
       # -- Amount of CPU units that the metrics-api container requests
-      request:
+      request: 100m
     memory:
       # -- Maximum amount of memory that metrics-api container can use
-      limit:
+      limit: 250Mi
       # -- Amount of memory that the metrics-api container requests
-      request:
+      request: 50Mi
     ephemeral-storage:
       # -- Maximum amount of ephemeral storage that the metrics-api container can use
       limit: ""
@@ -197,12 +197,12 @@ tap:
       # -- Maximum amount of CPU units that the tap container can use
       limit:
       # -- Amount of CPU units that the tap container requests
-      request:
+      request: 100m
     memory:
       # -- Maximum amount of memory that tap container can use
-      limit:
+      limit: 250Mi
       # -- Amount of memory that the tap container requests
-      request:
+      request: 50Mi
     ephemeral-storage:
       # -- Maximum amount of ephemeral storage that the tap container can use
       limit: ""
@@ -264,12 +264,12 @@ tapInjector:
       # -- Maximum amount of CPU units that the tapInjector container can use
       limit:
       # -- Amount of CPU units that the tapInjector container requests
-      request:
+      request: 100m
     memory:
       # -- Maximum amount of memory that tapInjector container can use
-      limit:
+      limit: 250Mi
       # -- Amount of memory that the tapInjector container requests
-      request:
+      request: 50Mi
     ephemeral-storage:
       # -- Maximum amount of ephemeral storage that the tapInjector container can use
       limit: ""
@@ -358,12 +358,12 @@ dashboard:
       # -- Maximum amount of CPU units that the web container can use
       limit:
       # -- Amount of CPU units that the web container requests
-      request:
+      request: 100m
     memory:
       # -- Maximum amount of memory that web container can use
-      limit:
+      limit: 250Mi
       # -- Amount of memory that the web container requests
-      request:
+      request: 50Mi
     ephemeral-storage:
       # -- Maximum amount of ephemeral storage that the web container can use
       limit: ""
@@ -525,12 +525,12 @@ prometheus:
       # -- Maximum amount of CPU units that the prometheus container can use
       limit:
       # -- Amount of CPU units that the prometheus container requests
-      request:
+      request: 300m
     memory:
       # -- Maximum amount of memory that prometheus container can use
-      limit:
+      limit: 6144Mi
       # -- Amount of memory that the prometheus container requests
-      request:
+      request: 300Mi
     ephemeral-storage:
       # -- Maximum amount of ephemeral storage that the prometheus container can use
       limit: ""
