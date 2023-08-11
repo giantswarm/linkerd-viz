@@ -53,7 +53,7 @@ tolerations: &default_tolerations
 # -- Enables Pod Anti Affinity logic to balance the placement of replicas
 # across hosts and zones for High Availability.
 # Enable this only when you have multiple replicas of components.
-enablePodAntiAffinity: false
+enablePodAntiAffinity: true
 
 # -- NodeAffinity section, See the
 # [K8S documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)
