@@ -137,7 +137,7 @@ metricsAPI:
 # tap configuration
 tap:
     # -- Number of tap component replicas
-  replicas: 1
+  replicas: 3
   # -- log level of the tap component
   # @default -- defaultLogLevel
   logLevel: ""
@@ -228,7 +228,7 @@ tap:
 # tapInjector configuration
 tapInjector:
   # -- Number of replicas of tapInjector
-  replicas: 1
+  replicas: 2
   # -- log level of the tapInjector
   # @default -- defaultLogLevel
   logLevel: ""
