@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add PodDisruptionBudget for `tap` and `tap-injector`.
+
 ## [1.1.0] - 2023-08-15
 
 ### Changed

@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: use global image registry...
-      sha: 9fe8a80ec8e33a903df799a54416fcbe728eaec0
+      commitTitle: Add PDB for tap and tap-injector (#558)...
+      sha: ab842c589f03422eaecf9c5ef58ae86af5a7aed5
       tags:
-      - stable-2.10.1-2935-g9fe8a80ec
+      - stable-2.10.1-2937-gab842c589
     path: linkerd
   path: vendor
 - contents:
