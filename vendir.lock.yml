@@ -2,10 +2,11 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: Add PDB for tap and tap-injector (#558)...
-      sha: ab842c589f03422eaecf9c5ef58ae86af5a7aed5
+      commitTitle: Merge remote-tracking branch 'upstream/release/stable-2.13' into
+        stable-2.13.x
+      sha: ea513a4b04dd1515dec9e6ee0b44cafa4785fd63
       tags:
-      - stable-2.10.1-2937-gab842c589
+      - stable-2.10.1-2949-gea513a4b0
     path: linkerd
   path: vendor
 - contents:
