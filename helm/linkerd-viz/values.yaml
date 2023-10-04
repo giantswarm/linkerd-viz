@@ -68,6 +68,9 @@ enablePodDisruptionBudget: true
 # `enabledPSP` is set to true on the control plane install. Note PSP has been
 # deprecated since k8s v1.21
 enablePSP: false
+global:
+  podSecurityStandards:
+    enforced: false
 
 # -- url of external prometheus instance
 prometheusUrl: ""
