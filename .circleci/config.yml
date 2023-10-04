@@ -16,3 +16,14 @@ workflows:
             # Trigger the job also on git tag.
             tags:
               only: /^v.*/
+
+      - architect/run-tests-with-ats:
+          name: execute chart tests
+          app-test-suite_container_tag: "0.2.3"
+          filters:
+            # Do not trigger the job on merge to main.
+            branches:
+              ignore:
+                - main
+          requires:
+            - push-to-giantswarm-app-catalog
