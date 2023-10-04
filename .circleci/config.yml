@@ -8,10 +8,11 @@ workflows:
       - architect/push-to-app-catalog:
           name: push-to-giantswarm-app-catalog
           context: architect
-          executor: app-build-suite
+          executor: "app-build-suite"
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
           chart: "linkerd-viz"
+          persist_chart_archive: true
           filters:
             # Trigger the job also on git tag.
             tags:
