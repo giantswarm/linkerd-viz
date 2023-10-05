@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add PSS flag for PSP->PSS migration.
+- Fix default `namespaceSelector` for tap MutatingWebhookConfiguration.
 
 ## [1.3.0] - 2023-08-29
 

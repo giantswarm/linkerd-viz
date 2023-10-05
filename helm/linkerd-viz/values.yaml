@@ -255,6 +255,7 @@ tapInjector:
     pullPolicy: ""
 
   namespaceSelector:
+    matchExpressions:
     - key: kubernetes.io/metadata.name
       operator: NotIn
       values:
