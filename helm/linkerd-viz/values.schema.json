@@ -579,7 +579,12 @@
                     "type": "string"
                 },
                 "namespaceSelector": {
-                    "type": ["null", "array"]
+                    "type": ["null","object"],
+                    "properties": {
+                        "matchExpressions": {
+                            "type": ["null", "array"]
+                        }
+                    }
                 },
                 "objectSelector": {
                     "type": ["null", "array"]
