@@ -1,4 +1,4 @@
-{{ if and .Values.enablePSP (not .Values.global.podSecurityStandards.enforced) -}}
+{{ if .Values.enablePSP -}}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     linkerd.io/extension: viz
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 rules:
 - apiGroups: ['policy', 'extensions']
   resources: ['podsecuritypolicies']
@@ -23,7 +23,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   kind: Role
   name: psp
@@ -45,8 +45,5 @@ subjects:
   namespace: {{.Release.Namespace}}
 - kind: ServiceAccount
   name: tap-injector
-  namespace: {{.Release.Namespace}}
-- kind: ServiceAccount
-  name: namespace-metadata
   namespace: {{.Release.Namespace}}
 {{ end -}}

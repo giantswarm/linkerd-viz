@@ -10,10 +10,9 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap-injector
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
-    {{- with .Values.tapInjector.service.annotations }}{{ toYaml . | trim | nindent 4 }}{{- end }}
     linkerd.io/inject: enabled
 spec:
   type: ClusterIP
@@ -39,7 +38,7 @@ metadata:
     app.kubernetes.io/part-of: Linkerd
     component: tap-injector
     giantswarm.io/monitoring_basic_sli: "true"
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: tap-injector
   namespace: {{ .Release.Namespace }}
 spec:
@@ -64,7 +63,6 @@ spec:
         {{- end }}
         {{- with .Values.podAnnotations }}{{ toYaml . | trim | nindent 8 }}{{- end }}
         linkerd.io/inject: enabled
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "0"
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
         linkerd.io/extension: viz
@@ -107,45 +105,13 @@ spec:
         {{- include "partials.resources" .Values.tapInjector.resources | nindent 8 }}
         {{- end }}
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
           runAsUser: {{.Values.tapInjector.UID | default .Values.defaultUID}}
-          seccompProfile:
-            type: RuntimeDefault
         volumeMounts:
         - mountPath: /var/run/linkerd/tls
           name: tls
           readOnly: true
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
       serviceAccountName: tap-injector
       volumes:
       - name: tls
         secret:
           secretName: tap-injector-k8s-tls
-{{- if .Values.enablePodDisruptionBudget }}
----
-kind: PodDisruptionBudget
-apiVersion: policy/v1
-metadata:
-  name: tap-injector
-  namespace: {{ .Release.Namespace }}
-  labels:
-    linkerd.io/extension: viz
-    component: tap-injector
-    namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
-  annotations:
-    {{ include "partials.annotations.created-by" . }}
-spec:
-  maxUnavailable: 1
-  selector:
-    matchLabels:
-      linkerd.io/extension: viz
-      component: tap-injector
-{{- end }}

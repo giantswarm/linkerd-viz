@@ -12,7 +12,7 @@ metadata:
     linkerd.io/extension: viz
     component: prometheus
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
 data:
@@ -168,7 +168,7 @@ metadata:
     linkerd.io/extension: viz
     component: prometheus
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
     linkerd.io/inject: enabled
@@ -196,7 +196,8 @@ metadata:
     app.kubernetes.io/version: {{default .Values.linkerdVersion .Values.cliVersion}}
     component: prometheus
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    giantswarm.io/monitoring_basic_sli: "true"
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: prometheus
   namespace: {{ .Release.Namespace }}
 spec:
@@ -219,17 +220,19 @@ spec:
         {{- end }}
         {{- with .Values.podAnnotations }}{{ toYaml . | trim | nindent 8 }}{{- end }}
         linkerd.io/inject: enabled
-        config.alpha.linkerd.io/proxy-wait-before-exit-seconds: "0"
       labels:
         linkerd.io/extension: viz
         component: prometheus
         namespace: {{.Release.Namespace}}
         {{- with .Values.podLabels }}{{ toYaml . | trim | nindent 8 }}{{- end }}
+        {{- include "partials.giantswarm-labels" . | nindent 8 }}
     spec:
       {{- if .Values.prometheus.tolerations -}}
       {{- include "linkerd.tolerations" (dict "Values" .Values.prometheus) | nindent 6 }}
       {{- end -}}
       {{- include "linkerd.node-selector" (dict "Values" .Values.prometheus) | nindent 6 }}
+      securityContext:
+        fsGroup: 65534
       containers:
       {{- if .Values.prometheus.sidecarContainers -}}
       {{- toYaml .Values.prometheus.sidecarContainers | trim | nindent 6 }}
@@ -244,7 +247,7 @@ spec:
         {{- range $key, $value := .Values.prometheus.args}}
         - --{{ $key }}{{ if $value }}={{ $value }}{{ end }}
         {{- end }}
-        image: {{.Values.image.registry}}/{{.Values.prometheus.image.name}}:{{.Values.prometheus.image.tag}}
+        image: {{.Values.prometheus.image.registry | default .Values.image.registry}}/{{.Values.prometheus.image.name}}:{{.Values.prometheus.image.tag}}
         imagePullPolicy: {{.Values.prometheus.image.pullPolicy | default .Values.defaultImagePullPolicy}}
         livenessProbe:
           httpGet:
@@ -266,16 +269,9 @@ spec:
         {{- include "partials.resources" .Values.prometheus.resources | nindent 8 }}
         {{- end }}
         securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 65534
           runAsGroup: 65534
-          seccompProfile:
-            type: RuntimeDefault
         volumeMounts:
       {{- range .Values.prometheus.ruleConfigMapMounts }}
         - name: {{ .name }}
@@ -289,10 +285,6 @@ spec:
           name: prometheus-config
           subPath: prometheus.yml
           readOnly: true
-      securityContext:
-        fsGroup: 65534
-        seccompProfile:
-          type: RuntimeDefault
       serviceAccountName: prometheus
       volumes:
     {{- range .Values.prometheus.ruleConfigMapMounts }}
@@ -321,7 +313,7 @@ metadata:
     app.kubernetes.io/part-of: Linkerd
     app.kubernetes.io/version: {{default .Values.linkerdVersion}}
     component: prometheus
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   name: prometheus
   namespace: {{ .Release.Namespace }}
 spec:

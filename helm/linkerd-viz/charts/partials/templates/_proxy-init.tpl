@@ -71,8 +71,6 @@ securityContext:
   runAsUser: {{ .Values.proxyInit.runAsUser | int | eq 0 | ternary 65534 .Values.proxyInit.runAsUser }}
   {{- end }}
   readOnlyRootFilesystem: true
-  seccompProfile:
-    type: RuntimeDefault
 terminationMessagePolicy: FallbackToLogsOnError
 {{- if or (not .Values.cniEnabled) .Values.proxyInit.saMountPath }}
 volumeMounts:

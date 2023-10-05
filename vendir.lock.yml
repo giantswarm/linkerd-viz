@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add PSS flag for PSP->PSS migration (#559)...
-      sha: 81d4bbad3f3b9c4628b62134b014859c4e80ad15
+      commitTitle: Merge tag 'refs/tags/stable-2.12.4' into upgrade-2.12.4...
+      sha: 6a3b38f5edf1aa4781ad1b60f899bba020b47b44
       tags:
-      - stable-2.10.1-2950-g81d4bbad3
+      - stable-2.10.1-2189-g6a3b38f5e
     path: linkerd
   path: vendor
 - contents:

@@ -9,7 +9,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["pods", "services", "replicationcontrollers", "namespaces", "nodes"]
@@ -28,7 +28,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["namespaces"]
@@ -44,7 +44,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -61,7 +61,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -80,7 +80,7 @@ metadata:
     linkerd.io/extension: viz
     component: tap
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 {{- include "partials.image-pull-secrets" .Values.imagePullSecrets }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -92,7 +92,7 @@ metadata:
     linkerd.io/extension: viz
     component: tap
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -114,7 +114,7 @@ metadata:
     linkerd.io/extension: viz
     component: tap
     namespace: {{.Release.Namespace}}
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
   annotations:
     {{ include "partials.annotations.created-by" . }}
 type: kubernetes.io/tls
@@ -140,7 +140,7 @@ metadata:
   labels:
     linkerd.io/extension: viz
     component: tap
-    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+    {{- include "partials.giantswarm-labels" . | nindent 4 }}
 spec:
   group: tap.linkerd.io
   version: v1alpha1
