@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add basic tests.
+
 ### Changed
 
 - Add PSS flag for PSP->PSS migration.

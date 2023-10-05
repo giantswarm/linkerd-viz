@@ -1,2 +1,10 @@
+linkerd-viz*.tgz
+linkerd-viz*.tgz-meta/
+*.kube.config
+test_results_*.xml
+.pytest_cache
+linkerd-cli
+__pycache__
+**/.idea/
 vendor
 build
