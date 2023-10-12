@@ -104,7 +104,7 @@ Kubernetes: `>=1.16.0-0`
 | defaultLogFormat | string | `"plain"` | Log format (`plain` or `json`) for all the viz components. |
 | defaultLogLevel | string | `"info"` | Log level for all the viz components |
 | defaultUID | int | `2103` | UID for all the viz components |
-| enablePSP | bool | `false` | Create Roles and RoleBindings to associate this extension's ServiceAccounts to the control plane PSP resource. This requires that `enabledPSP` is set to true on the control plane install. Note PSP has been deprecated since k8s v1.21 |
+| enablePSP | bool | `true` | Create Roles and RoleBindings to associate this extension's ServiceAccounts to the control plane PSP resource. This requires that `enabledPSP` is set to true on the control plane install. Note PSP has been deprecated since k8s v1.21 |
 | enablePodAntiAffinity | bool | `true` | Enables Pod Anti Affinity logic to balance the placement of replicas across hosts and zones for High Availability. Enable this only when you have multiple replicas of components. |
 | enablePodDisruptionBudget | bool | `true` | enables the creation of pod disruption budgets for tap and tap-injector components |
 | grafana.externalUrl | string | `nil` | url of a Grafana instance hosted off-cluster. Cannot be set if grafana.url is set. The reverse proxy will not be used for this URL. |
