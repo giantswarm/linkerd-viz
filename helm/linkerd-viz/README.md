@@ -3,9 +3,9 @@
 The Linkerd-Viz extension contains observability and visualization
 components for Linkerd.
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square)
+![Version: 1.3.2](https://img.shields.io/badge/Version-1.3.2-informational?style=flat-square)
 
-![AppVersion: stable-2.13.4](https://img.shields.io/badge/AppVersion-stable--2.13.4-informational?style=flat-square)
+![AppVersion: stable-2.13.6](https://img.shields.io/badge/AppVersion-stable--2.13.6-informational?style=flat-square)
 
 **Homepage:** <https://linkerd.io>
 
@@ -107,6 +107,7 @@ Kubernetes: `>=1.16.0-0`
 | enablePSP | bool | `true` | Create Roles and RoleBindings to associate this extension's ServiceAccounts to the control plane PSP resource. This requires that `enabledPSP` is set to true on the control plane install. Note PSP has been deprecated since k8s v1.21 |
 | enablePodAntiAffinity | bool | `true` | Enables Pod Anti Affinity logic to balance the placement of replicas across hosts and zones for High Availability. Enable this only when you have multiple replicas of components. |
 | enablePodDisruptionBudget | bool | `true` | enables the creation of pod disruption budgets for tap and tap-injector components |
+| global.podSecurityStandards.enforced | bool | `false` |  |
 | grafana.externalUrl | string | `nil` | url of a Grafana instance hosted off-cluster. Cannot be set if grafana.url is set. The reverse proxy will not be used for this URL. |
 | grafana.uidPrefix | string | `nil` | prefix for Grafana dashboard UID's, used when grafana.externalUrl is set. |
 | grafana.url | string | `nil` | url of an in-cluster Grafana instance with reverse proxy configured, used by the Linkerd viz web dashboard to provide direct links to specific Grafana dashboards. Cannot be set if grafana.externalUrl is set. See the [Linkerd documentation](https://linkerd.io/2/tasks/grafana) for more information |
@@ -115,7 +116,7 @@ Kubernetes: `>=1.16.0-0`
 | imagePullSecrets | list | `[]` | For Private docker registries, authentication is needed.  Registry secrets are applied to the respective service accounts |
 | jaegerUrl | string | `""` | url of external jaeger instance Set this to `jaeger.linkerd-jaeger.svc.<clusterDomain>:16686` if you plan to use jaeger extension |
 | linkerdNamespace | string | `"linkerd"` | Namespace of the Linkerd core control-plane install |
-| linkerdVersion | string | `"stable-2.13.4"` | control plane version. See Proxy section for proxy version |
+| linkerdVersion | string | `"stable-2.14.3"` | control plane version. See Proxy section for proxy version |
 | metricsAPI.UID | string | `nil` | UID for the metrics-api resource |
 | metricsAPI.image.name | string | `"giantswarm/linkerd-metrics-api"` | Docker image name for the metrics-api component |
 | metricsAPI.image.pullPolicy | string | defaultImagePullPolicy | Pull policy for the metrics-api component |
@@ -139,6 +140,8 @@ Kubernetes: `>=1.16.0-0`
 | namespaceMetadata.image.pullPolicy | string | defaultImagePullPolicy | Pull policy for the namespace-metadata instance |
 | namespaceMetadata.image.registry | string | defaultRegistry | Docker registry for the namespace-metadata instance |
 | namespaceMetadata.image.tag | string | `"v0.1.0"` | Docker image tag for the namespace-metadata instance |
+| namespaceMetadata.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | NodeSelector section, See the [K8S documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) for more information |
+| namespaceMetadata.tolerations | string | `nil` | Tolerations section, See the [K8S documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/) for more information |
 | nodeSelector | object | `{"kubernetes.io/os":"linux"}` | Default nodeSelector section, See the [K8S documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) for more information |
 | podLabels | object | `{}` | Additional labels to add to all pods |
 | prometheus.alertRelabelConfigs | string | `nil` | Alert relabeling is applied to alerts before they are sent to the Alertmanager. |
@@ -149,7 +152,7 @@ Kubernetes: `>=1.16.0-0`
 | prometheus.image.name | string | `"giantswarm/prometheus"` | Docker image name for the prometheus instance |
 | prometheus.image.pullPolicy | string | defaultImagePullPolicy | Pull policy for the prometheus instance |
 | prometheus.image.registry | string | `""` | Docker registry for the prometheus instance |
-| prometheus.image.tag | string | `"v2.43.0"` | Docker image tag for the prometheus instance |
+| prometheus.image.tag | string | `"v2.47.0"` | Docker image tag for the prometheus instance |
 | prometheus.logFormat | string | defaultLogLevel | log format (plain, json) of the prometheus instance |
 | prometheus.logLevel | string | defaultLogLevel | log level of the prometheus instance |
 | prometheus.nodeSelector | object | `{"kubernetes.io/os":"linux"}` | NodeSelector section, See the [K8S documentation](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector) for more information |
@@ -204,11 +207,12 @@ Kubernetes: `>=1.16.0-0`
 | tapInjector.keyPEM | string | `""` | Certificate key for the tapInjector. If not provided and not using an external secret then Helm will generate one. |
 | tapInjector.logFormat | string | defaultLogFormat | log format of the tapInjector component |
 | tapInjector.logLevel | string | defaultLogLevel | log level of the tapInjector |
-| tapInjector.namespaceSelector[0].key | string | `"kubernetes.io/metadata.name"` |  |
-| tapInjector.namespaceSelector[0].operator | string | `"NotIn"` |  |
-| tapInjector.namespaceSelector[0].values[0] | string | `"kube-system"` |  |
-| tapInjector.namespaceSelector[0].values[1] | string | `"cert-manager"` |  |
-| tapInjector.namespaceSelector[0].values[2] | string | `"giantswarm"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].key | string | `"kubernetes.io/metadata.name"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].operator | string | `"NotIn"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].values[0] | string | `"kube-system"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].values[1] | string | `"cert-manager"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].values[2] | string | `"giantswarm"` |  |
+| tapInjector.namespaceSelector.matchExpressions[0].values[3] | string | `"kyverno"` |  |
 | tapInjector.objectSelector | string | `nil` |  |
 | tapInjector.proxy | string | `nil` |  |
 | tapInjector.replicas | int | `2` | Number of replicas of tapInjector |
