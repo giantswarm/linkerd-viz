@@ -173,7 +173,7 @@ def viz_app_cr(
         chart_version,
         f"chartmuseum-test-time",
         viz_namespace,
-        "http://chartmuseum-chartmuseum:8080/charts/",
+        "http://chartmuseum.giantswarm.svc.cluster.local.:8080/",
         timeout_sec=timeout,
         namespace=viz_namespace,
         deployment_namespace=viz_namespace,
