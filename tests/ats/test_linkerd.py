@@ -28,12 +28,12 @@ timeout: int = 360
 app_catalog_url = "https://giantswarm.github.io/giantswarm-catalog/"
 
 cni_namespace = "linkerd-cni"
-cni_app_version = "1.1.0"
+cni_app_version = "1.4.0"
 cni_app_name = "linkerd2-cni"
 
 linkerd_namespace = "linkerd"
 linkerd_app_name = "linkerd-control-plane"
-linkerd_app_version = "1.1.0"
+linkerd_app_version = "1.3.0"
 
 viz_namespace = "linkerd-viz"
 viz_app_name = "linkerd-viz"
