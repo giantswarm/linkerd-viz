@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Upgrade to Linkerd v2.14.3.
+- Update Linkerd CNI and Control plane in CI.
+- Update ATS.
 
 ## [1.3.2] - 2023-10-12
 
