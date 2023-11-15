@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f3e89ff71abe9adc7d66f0b4991d1bc503e92a08a80961441693a232fd8117c6"
+            "sha256": "42ffe3644a2670e6588481a2983bd7c94510f44e1591a145e02d477dbc5ab29b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -173,7 +173,6 @@
                 "sha256:46de8e17ed87c1a1014667d60e7d94a1f3fa2b8037b41e67d32c28b5869af35d",
                 "sha256:63f20f634bfcd83966edec32f892286f75dffb817a2c097434ecc039e558ec8f"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.8' and python_version < '4'",
             "version": "==23.6.0"
         },
@@ -182,7 +181,6 @@
                 "sha256:0d009c083ea859a71b76adf7c1d502e4bc170b80a8ef002da5806527b9591fac",
                 "sha256:d989d136982de4e3b29dabcc838ad581c64e8ed52c11fbe86ddebd9da0818cd5"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==7.4.3"
         },
@@ -194,15 +192,6 @@
             "index": "pypi",
             "markers": "python_full_version >= '3.8.1' and python_full_version < '4.0.0'",
             "version": "==1.1.2"
-        },
-        "pytest-rerunfailures": {
-            "hashes": [
-                "sha256:784f462fa87fe9bdf781d0027d856b47a4bfe6c12af108f6bd887057a917b48e",
-                "sha256:9a1afd04e21b8177faf08a9bbbf44de7a0fe3fc29f8ddbe83b9684bd5f8f92a9"
-            ],
-            "index": "pypi",
-            "markers": "python_version >= '3.7'",
-            "version": "==12.0"
         },
         "pyyaml": {
             "hashes": [
@@ -257,7 +246,6 @@
                 "sha256:fd1592b3fdf65fff2ad0004b5e363300ef59ced41c2e6b3a99d4089fa8c5435d",
                 "sha256:fd66fc5d0da6d9815ba2cebeb4205f95818ff4b79c3ebe268e75d961704af52f"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.6'",
             "version": "==6.0.1"
         },
@@ -266,7 +254,6 @@
                 "sha256:58cd2187c01e70e6e26505bca751777aa9f2ee0b7f4300988b709f44e013003f",
                 "sha256:942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1"
             ],
-            "index": "pypi",
             "markers": "python_version >= '3.7'",
             "version": "==2.31.0"
         },
