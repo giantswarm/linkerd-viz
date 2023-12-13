@@ -21,7 +21,7 @@ identityTrustDomain: ""
 # -- Registry switch
 # Do not overwrite this as the registry is automatically set based on the installation region
 image:
-  registry: quay.io
+  registry: gsoci.azurecr.io
 
 # -- Docker imagePullPolicy for all viz components
 defaultImagePullPolicy: IfNotPresent
