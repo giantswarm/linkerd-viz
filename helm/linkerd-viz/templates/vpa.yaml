@@ -1,0 +1,93 @@
+{{ if .Values.vpa.enabled }}
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: tap
+  namespace: {{ .Release.Namespace }}
+  labels:
+    linkerd.io/extension: viz
+    component: tap
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: tap
+      controlledValues: RequestsAndLimits
+      mode: Auto
+      {{- with .Values.vpa.tap.minAllowed }}
+      minAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.vpa.tap.maxAllowed }}
+      maxAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  tap
+  updatePolicy:
+    updateMode: Auto
+---
+
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: tap-injector
+  namespace: {{ .Release.Namespace }}
+  labels:
+    linkerd.io/extension: viz
+    component: tap-injector
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: tap-injector
+      controlledValues: RequestsAndLimits
+      mode: Auto
+      {{- with .Values.vpa.tapInjector.minAllowed }}
+      minAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.vpa.tapInjector.maxAllowed }}
+      maxAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  tap-injector
+  updatePolicy:
+    updateMode: Auto
+---
+
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: metrics-api
+  namespace: {{ .Release.Namespace }}
+  labels:
+    linkerd.io/extension: viz
+    component: metrics-api
+    {{- with .Values.commonLabels }}{{ toYaml . | trim | nindent 4 }}{{- end }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+    - containerName: metrics-api
+      controlledValues: RequestsAndLimits
+      mode: Auto
+      {{- with .Values.vpa.metricsApi.minAllowed }}
+      minAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.vpa.metricsApi.maxAllowed }}
+      maxAllowed:
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name:  metrics-api
+  updatePolicy:
+    updateMode: Auto
+{{ end }}
