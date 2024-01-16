@@ -645,6 +645,48 @@
         },
         "tolerations": {
             "type": ["null", "array"]
+
+        },
+        "vpa": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "metricsApi": {
+                    "type": "object",
+                    "properties": {
+                        "maxAllowed": {
+                            "type": "object"
+                        },
+                        "minAllowed": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tap": {
+                    "type": "object",
+                    "properties": {
+                        "maxAllowed": {
+                            "type": "object"
+                        },
+                        "minAllowed": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "tapInjector": {
+                    "type": "object",
+                    "properties": {
+                        "maxAllowed": {
+                            "type": "object"
+                        },
+                        "minAllowed": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
         }
     }
 }

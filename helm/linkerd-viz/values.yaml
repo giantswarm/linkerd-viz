@@ -567,3 +567,21 @@ prometheus:
   # [K8S documentation](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
   # for more information
   tolerations: *default_tolerations
+
+vpa:
+  enabled: true
+  tap:
+    minAllowed:
+      Cpu: 100m
+      Memory: 50Mi
+    maxAllowed: {}
+  tapInjector:
+    minAllowed:
+      Cpu: 100m
+      Memory: 50Mi
+    maxAllowed: {}
+  metricsApi:
+    minAllowed:
+      Cpu: 100m
+      Memory: 50Mi
+    maxAllowed: {}

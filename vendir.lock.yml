@@ -2,10 +2,10 @@ apiVersion: vendir.k14s.io/v1alpha1
 directories:
 - contents:
   - git:
-      commitTitle: add nodetaint remover container...
-      sha: 05a70b5ffc1de5df36af2f4d447bad30c096dca6
+      commitTitle: '[GS] add VPA for linkerd-viz...'
+      sha: 01055dd14c7a644c8ef82442f8143acf17bff90c
       tags:
-      - stable-2.10.1-3185-g05a70b5ff
+      - stable-2.10.1-3187-g01055dd14
     path: linkerd
   path: vendor
 - contents:

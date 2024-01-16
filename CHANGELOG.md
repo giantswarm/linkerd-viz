@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add VPA for tap, tap-injector and metrics-api.
+
 ## [1.4.1] - 2023-12-13
 
 ### Changed
