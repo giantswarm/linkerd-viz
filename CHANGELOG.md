@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2024-01-16
+
 ### Added
 
 - Add VPA for tap, tap-injector and metrics-api.
@@ -90,7 +92,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add image registry switch to automatically switch the used image registry based on the installation region.
 
-[Unreleased]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.3.2...v1.4.0
 [1.3.2]: https://github.com/giantswarm/linkerd-viz-app/compare/v1.3.1...v1.3.2
